@@ -3,78 +3,42 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Synthe {
-	static int tempo;
-	static boolean harm = false;
-	static boolean guitar = false;
-	public static boolean guitare;
 
-	public Synthe() {
-	}
+    private static int tempo;
 
-	public static void main(String[] args) {
-		if(args.length < 2) {
-			System.out.println("Usage : java Synthe <fichier> <tempo> <harm/guitar>");
-			System.exit(-1);
-		}
+    private static void playLine(String line, boolean harm) {
 
-		tempo = Integer.parseInt(args[1]);
-		if(args.length == 3) {
-			if(args[2].equals("harm")) {
-				harm = true;
-			} else if(args[2].equals("guitar")) {
-				guitar = true;
-			}
-		}
-
-		try {
-			BufferedReader ex = new BufferedReader(new FileReader(args[0]));
-
-			String ligne;
-			while((ligne = ex.readLine()) != null) {
-				playLigne(ligne, harm, guitar);
-			}
-
-			ex.close();
-		} catch (IOException var3) {
-			var3.printStackTrace();
-		}
-
-		System.exit(0);
-	}
-
-	public static void playLigne(String ligne, boolean harm, boolean guitar) {
-		guitare = guitar;
-		int k = 0;
+        int k = 0;
 		int virgule = 0;
 		int nbNote = 0;
 
 		String[] section;
-		for(section = new String[]{"", "", "", "", "", "", ""}; k < ligne.length(); ++k) {
-			if(ligne.charAt(k) != 44) {
+        for (section = new String[]{"", "", "", "", "", "", ""}; k < line.length(); ++k) {
+            if (line.charAt(k) != 44) {
 				switch(virgule) {
 					case 0:
-						section[0] = section[0] + ligne.charAt(k);
+                        section[0] = section[0] + line.charAt(k);
 						break;
 					case 1:
-						section[1] = section[1] + ligne.charAt(k);
+                        section[1] = section[1] + line.charAt(k);
 						break;
 					case 2:
-						section[2] = section[2] + ligne.charAt(k);
+                        section[2] = section[2] + line.charAt(k);
 						break;
 					case 3:
-						section[3] = section[3] + ligne.charAt(k);
+                        section[3] = section[3] + line.charAt(k);
 						break;
 					case 4:
-						section[4] = section[4] + ligne.charAt(k);
+                        section[4] = section[4] + line.charAt(k);
 						break;
 					case 5:
-						section[5] = section[5] + ligne.charAt(k);
+                        section[5] = section[5] + line.charAt(k);
 						break;
 					case 6:
-						section[6] = section[6] + ligne.charAt(k);
+                        section[6] = section[6] + line.charAt(k);
 						break;
 					default:
-						System.out.println("Error de section");
+                        System.exit(-6);
 				}
 			} else {
 				++virgule;
@@ -111,4 +75,36 @@ public class Synthe {
 
 		chord.play();
 	}
+
+    public static void main(String[] args) {
+
+        if (args.length < 2) {
+            System.out.println("Usage : java Synthe <fichier> <tempo> <harm>");
+            System.exit(-1);
+        }
+
+        tempo = Integer.parseInt(args[1]);
+
+        boolean harm = false;
+
+        if (args.length == 3 && args[2].equals("harm")) {
+            harm = true;
+        }
+
+        try {
+            BufferedReader ex = new BufferedReader(new FileReader(args[0]));
+
+            String line;
+            while ((line = ex.readLine()) != null) {
+                playLine(line, harm);
+            }
+
+            ex.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.exit(0);
+    }
 }

@@ -1,3 +1,6 @@
+import javax.sound.sampled.AudioFileFormat.Type;
+import javax.sound.sampled.*;
+import javax.sound.sampled.DataLine.Info;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.ByteArrayInputStream;
@@ -5,14 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.sound.sampled.AudioFileFormat.Type;
-import javax.sound.sampled.DataLine.Info;
 
 public final class StdAudio {
     public static final int SAMPLE_RATE = 44100;
